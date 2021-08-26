@@ -1,9 +1,10 @@
-import Card from "../components/layouts/Card";
-import Input from "../components/Input";
+import Card from "../../components/layouts/Card";
+import Input from "../../components/Input";
 import { Link } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/solid";
+import { asyncLogin } from "../../utils/api";
 
-export default function login() {
+export default function Signin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -27,7 +28,17 @@ export default function login() {
           </p>
         </div>
         <Card>
-          <form className="space-y-6" action="#" method="POST">
+          <form
+            className="space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              //@ts-ignore
+              console.log(e.target.email.value);
+              // console.log(e.target.password.value);
+              //@ts-ignore
+              asyncLogin(e.target.email.value, e.target.password.value);
+            }}
+          >
             <div className="rounded-md shadow-sm">
               <div className="mb-4">
                 <Input
@@ -54,7 +65,7 @@ export default function login() {
             <div className="flex items-center justify-end">
               <div className="text-sm">
                 <Link
-                  to="forgot-password"
+                  to="/forgot-password"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Forgot your password?

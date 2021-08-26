@@ -5,7 +5,10 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 import reportWebVitals from "./reportWebVitals";
+
+axios.defaults.baseURL = "http://127.0.0.1:8000";
 
 ReactDOM.render(
   <React.StrictMode>
