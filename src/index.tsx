@@ -1,4 +1,5 @@
 import "./index.scss";
+import "react-perfect-scrollbar/dist/css/styles.css";
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
