@@ -4,15 +4,17 @@ export default function Input({
   label,
   right,
   ...props
-}: { label: string; right?: React.ReactNode } & HTMLProps<HTMLInputElement>) {
+}: { label?: string; right?: React.ReactNode } & HTMLProps<HTMLInputElement>) {
   return (
     <div>
-      <label
-        htmlFor="price"
-        className="block text-sm font-medium text-gray-700"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor="price"
+          className="block text-sm font-medium text-gray-700"
+        >
+          {label}
+        </label>
+      )}
       <div className="mt-1 relative rounded-md shadow-sm">
         <input
           {...props}
