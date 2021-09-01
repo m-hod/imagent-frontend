@@ -10,6 +10,7 @@ export async function authenticateCSRF() {
 }
 
 export async function asyncLogin(email: string, password: string) {
+  await authenticateCSRF();
   await api.post("/login", {
     email,
     password,

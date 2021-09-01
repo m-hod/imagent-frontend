@@ -1,8 +1,9 @@
-import { asyncLogin, authenticateCSRF } from "../../utils/api";
-
 import Card from "../../components/layouts/Card";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
+import { asyncLogin } from "../../utils/api";
+import { axiosErrorMessage } from "../../utils/utils";
+import toast from "react-hot-toast";
 
 export default function Signin() {
   return (
@@ -32,14 +33,16 @@ export default function Signin() {
             className="space-y-6"
             onSubmit={async (e) => {
               e.preventDefault();
-              authenticateCSRF().then(() =>
-                asyncLogin(
-                  //@ts-ignore
-                  e.target.email.value,
-                  //@ts-ignore
-                  e.target.password.value
-                ).then((res) => console.log(res))
-              );
+              asyncLogin(
+                //@ts-ignore
+                e.target.email.value,
+                //@ts-ignore
+                e.target.password.value
+              )
+                .then((res) => console.log(res))
+                .catch((e) => {
+                  toast.error(axiosErrorMessage(e));
+                });
             }}
           >
             <div className="rounded-md shadow-sm">
