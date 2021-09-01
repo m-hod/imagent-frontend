@@ -1,7 +1,8 @@
+import { asyncLogin, authenticateCSRF } from "../../utils/api";
+
 import Card from "../../components/layouts/Card";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
-import { asyncLogin } from "../../utils/api";
 
 export default function Signin() {
   return (
@@ -29,13 +30,16 @@ export default function Signin() {
         <Card>
           <form
             className="space-y-6"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              //@ts-ignore
-              console.log(e.target.email.value);
-              // console.log(e.target.password.value);
-              //@ts-ignore
-              asyncLogin(e.target.email.value, e.target.password.value);
+              authenticateCSRF().then(() =>
+                asyncLogin(
+                  //@ts-ignore
+                  e.target.email.value,
+                  //@ts-ignore
+                  e.target.password.value
+                ).then((res) => console.log(res))
+              );
             }}
           >
             <div className="rounded-md shadow-sm">
