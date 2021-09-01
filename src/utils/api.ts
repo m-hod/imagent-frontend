@@ -9,9 +9,16 @@ export async function authenticateCSRF() {
   await api.get("/sanctum/csrf-cookie");
 }
 
-export async function asyncLogin(email: string, password: string) {
+export async function asyncSignin(email: string, password: string) {
   await authenticateCSRF();
   await api.post("/login", {
+    email,
+    password,
+  });
+}
+
+export async function asyncSignup(email: string, password: string) {
+  await api.post("/register", {
     email,
     password,
   });

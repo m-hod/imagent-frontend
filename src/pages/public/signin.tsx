@@ -1,7 +1,11 @@
+import Button from "../../components/Button";
 import Card from "../../components/layouts/Card";
+import { Formik } from "formik";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
-import { asyncLogin } from "../../utils/api";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import PasswordInput from "../../components/PasswordInput";
+import { asyncSignin } from "../../utils/api";
 import { axiosErrorMessage } from "../../utils/utils";
 import toast from "react-hot-toast";
 
@@ -29,65 +33,73 @@ export default function Signin() {
           </p>
         </div>
         <Card>
-          <form
-            className="space-y-6"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              asyncLogin(
-                //@ts-ignore
-                e.target.email.value,
-                //@ts-ignore
-                e.target.password.value
-              )
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={async (values, { setSubmitting }) => {
+              asyncSignin(values.email, values.password)
                 .then((res) => console.log(res))
-                .catch((e) => {
-                  toast.error(axiosErrorMessage(e));
+                .catch((err) => {
+                  toast.error(axiosErrorMessage(err));
+                })
+                .finally(() => {
+                  setSubmitting(false);
                 });
             }}
           >
-            <div className="rounded-md shadow-sm">
-              <div className="mb-4">
-                <Input
-                  label="Email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  placeholder="Email address"
-                />
-              </div>
-              <div className="mb-4">
-                <Input
-                  label="Password"
-                  name="password"
-                  type="password"
-                  autoComplete="password"
-                  required
-                  placeholder="Password"
-                />
-              </div>
-            </div>
+            {({
+              values,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="rounded-md shadow-sm">
+                  <div className="mb-4">
+                    <Input
+                      label="Email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      placeholder="Email address"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <PasswordInput
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                </div>
 
-            <div className="flex items-center justify-end">
-              <div className="text-sm">
-                <Link
-                  to="/forgot-password"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
+                <div className="flex items-center justify-end">
+                  <div className="text-sm">
+                    <Link
+                      to="/forgot-password"
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    type="submit"
+                    label="Sign in"
+                    loading={isSubmitting}
+                  />
+                </div>
+              </form>
+            )}
+          </Formik>
         </Card>
       </div>
     </div>

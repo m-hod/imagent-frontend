@@ -1,13 +1,17 @@
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
-import React, { useState } from "react";
+import React, { HTMLProps, useState } from "react";
 
 import Input from "./Input";
 
-export default function PasswordInput({ toggle }: { toggle?: boolean }) {
+export default function PasswordInput({
+  toggle,
+  ...props
+}: { toggle?: boolean } & HTMLProps<HTMLInputElement>) {
   const [type, setType] = useState("password");
 
   return (
     <Input
+      {...props}
       label="Password"
       name="password"
       type={type}
