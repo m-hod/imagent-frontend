@@ -4,25 +4,23 @@ import {
   PlusIcon,
   SearchIcon,
 } from "@heroicons/react/solid";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Input from "./Input";
+import { LayoutContext } from "../context/LayoutContext";
 
 export default function Footer() {
+  const layoutContext = useContext(LayoutContext)!;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-
-  console.log(showMenu);
 
   useEffect(() => {
     if (isExpanded) {
-      setShowMenu(false);
+      layoutContext.setNavIsVisible(false);
     }
-  }, [isExpanded]);
+  }, [isExpanded, layoutContext]);
 
   return (
     <div>
-      {showMenu && <div className="h-full bg-white"></div>}
       {isExpanded ? (
         <div className="relative">
           {/* <div className="absolute right-0 -top-10 z-50 pr-3">
@@ -64,7 +62,7 @@ export default function Footer() {
           <button
             type="button"
             onClick={() => {
-              setShowMenu(!showMenu);
+              layoutContext.setNavIsVisible(!layoutContext.navIsVisible);
             }}
           >
             <MenuIcon className="h-6 w-6 text-indigo-500 group-hover:text-indigo-400" />

@@ -3,7 +3,6 @@ import Card from "../../components/layouts/Card";
 import { Formik } from "formik";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import PasswordInput from "../../components/PasswordInput";
 import { asyncSignin } from "../../utils/api";
 import { axiosErrorMessage } from "../../utils/utils";

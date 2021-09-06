@@ -6,12 +6,13 @@ const api = axios.create({
 });
 
 export async function authenticateCSRF() {
-  await api.get("/sanctum/csrf-cookie");
+  return await api.get("/sanctum/csrf-cookie");
 }
 
 export async function asyncSignin(email: string, password: string) {
-  await authenticateCSRF();
-  await api.post("/login", {
+  const res = await authenticateCSRF();
+  console.log(res.headers["XSRF-TOKEN"]);
+  return await api.post("/login", {
     email,
     password,
   });
