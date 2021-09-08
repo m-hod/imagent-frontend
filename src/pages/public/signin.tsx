@@ -5,8 +5,6 @@ import Input from "../../components/Input";
 import { Link } from "react-router-dom";
 import PasswordInput from "../../components/PasswordInput";
 import { asyncSignin } from "../../utils/api";
-import { axiosErrorMessage } from "../../utils/utils";
-import toast from "react-hot-toast";
 
 export default function Signin() {
   return (
@@ -40,9 +38,6 @@ export default function Signin() {
             onSubmit={async (values, { setSubmitting }) => {
               asyncSignin(values.email, values.password)
                 .then((res) => console.log(res))
-                .catch((err) => {
-                  toast.error(axiosErrorMessage(err));
-                })
                 .finally(() => {
                   setSubmitting(false);
                 });

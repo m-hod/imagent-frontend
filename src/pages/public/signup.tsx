@@ -5,8 +5,6 @@ import Input from "../../components/Input";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import PasswordInput from "../../components/PasswordInput";
 import { asyncSignup } from "../../utils/api";
-import { axiosErrorMessage } from "../../utils/utils";
-import toast from "react-hot-toast";
 
 export default function Signin() {
   return (
@@ -35,9 +33,6 @@ export default function Signin() {
             onSubmit={async (values, { setSubmitting }) => {
               asyncSignup(values.email, values.password)
                 .then((res) => console.log(res))
-                .catch((err) => {
-                  toast.error(axiosErrorMessage(err));
-                })
                 .finally(() => {
                   setSubmitting(false);
                 });

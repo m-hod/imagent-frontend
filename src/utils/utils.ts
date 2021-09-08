@@ -13,3 +13,8 @@ export function axiosErrorMessage(err: AxiosError<LaravelError>) {
     } else return errorData.message;
   } else return err.message;
 }
+
+export function checkXSRF() {
+  const cookies = decodeURIComponent(document.cookie);
+  return cookies.includes("XSRF-TOKEN");
+}

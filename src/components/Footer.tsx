@@ -1,9 +1,4 @@
-import {
-  ChevronLeftIcon,
-  MenuIcon,
-  PlusIcon,
-  SearchIcon,
-} from "@heroicons/react/solid";
+import { ChevronLeftIcon, MenuIcon, SearchIcon } from "@heroicons/react/solid";
 import React, { useContext, useEffect, useState } from "react";
 
 import Input from "./Input";
