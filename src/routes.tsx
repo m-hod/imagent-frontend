@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router";
 
+import EmailVerification from "./pages/public/email-verification";
 import ForgotPassword from "./pages/public/forgot-password";
 import Index from "./pages/authenticated";
 import React from "react";
@@ -10,6 +11,9 @@ import Signup from "./pages/public/signup";
 export default function Routes() {
   return (
     <Switch>
+      <Route path="/email/verify/:userId/:hash">
+        <EmailVerification />
+      </Route>
       <Route path="/reset-password">
         <ResetPassword />
       </Route>

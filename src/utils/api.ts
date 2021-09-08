@@ -23,3 +23,7 @@ export async function asyncSignup(email: string, password: string) {
     password,
   });
 }
+
+export async function verifyEmail(userId: number, queryString: string) {
+  return await api.get(`/email/verify/${userId}/${queryString}`);
+}
